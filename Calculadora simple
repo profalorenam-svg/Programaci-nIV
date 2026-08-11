@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora Web</title>
+</head>
+<body>
+    <h2>Calculadora de Operaciones Básicas</h2>
+    
+    <!-- El formulario envía los datos a este mismo archivo mediante el método POST -->
+    <form method="POST" action="">
+        <label for="num1">Primer Número:</label>
+        <input type="number" step="any" name="num1" id="num1" required><br><br>
+
+        <label for="num2">Segundo Número:</label>
+        <input type="number" step="any" name="num2" id="num2" required><br><br>
+
+        <label for="operacion">Seleccione una operación:</label>
+        <select name="operacion" id="operacion" required>
+            <option value="1">1. Suma</option>
+            <option value="2">2. Resta</option>
+            <!-- Aquí se pueden agregar las opciones 3 y 4 en el futuro -->
+        </select><br><br>
+
+        <input type="submit" value="Calcular">
+    </form>
+
+    <hr>
+
+    <?php
+    /**
+     * Proyecto Final - Calculadora de Operaciones Básicas (PHP Integrado con HTML)
+     * Licenciatura en Informática - ISAE Universidad
+     */
+
+    /**
+     * Función para realizar la suma de dos números.
+     */
+    function sumar(float $num1, float $num2): float {
+        return $num1 + $num2;
+    }
+
+    /**
+     * Función para realizar la resta de dos números.
+     */
+    function restar(float $num1, float $num2): float {
+        return $num1 - $num2;
+    }
+
+    // Verificamos si el formulario ha sido enviado al presionar el botón "Calcular"
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        
+        // Capturamos los datos del formulario usando el atributo 'name' de los inputs HTML
+        $num1 = (float) $_POST['num1'];
+        $num2 = (float) $_POST['num2'];
+        $operacion = $_POST['operacion'];
+        
+        $resultado = 0;
+
+        // Evaluamos la opción seleccionada
+        if ($operacion == "1") {
+            $resultado = sumar($num1, $num2);
+            echo "<h3>Resultado de la suma: " . $resultado . "</h3>";
+        } elseif ($operacion == "2") {
+            $resultado = restar($num1, $num2);
+            echo "<h3>Resultado de la resta: " . $resultado . "</h3>";
+        } else {
+            echo "<h3>Operación no válida.</h3>";
+        }
+    }
+    ?>
+</body>
+</html>
